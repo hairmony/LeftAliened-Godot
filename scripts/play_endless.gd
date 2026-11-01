@@ -296,7 +296,12 @@ func _apply_caps() -> void:
 
 
 func _xp_goal() -> float:
-	return float(maxi(ceili(ENDLESS_XP_START * pow(ENDLESS_XP_RAMP_PERCENT, float(_level))), 1))
+	#return float(maxi(ceili(ENDLESS_XP_START * pow(ENDLESS_XP_RAMP_PERCENT, float(_level))), 1))
+	var goal = float(maxi(ceili(ENDLESS_XP_START + log(float(_level) + 1.0) * (ENDLESS_XP_START * ENDLESS_XP_RAMP_PERCENT)), 1))
+	# New XP levelling is base XP + (base XP * ln (xp ramp))
+	
+	var goal_rounded = roundf(goal / 1000.0) * 1000.0
+	return goal_rounded
 
 
 func _draw_xp() -> void:
