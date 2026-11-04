@@ -63,6 +63,7 @@ var blinkTimer: float = 0.0
 # Variables for enemies
 @export var ENEMY_AMOUNT: int = 4
 @export var ENEMY_SHOT_DELAY: float = 1.0 # Shot delay is randomized between -ve and +ve of this value
+@export var ENEMY_SHOT_DELAY_DELAY: float = 3.0 # Shot delay is randomized between -ve shot delay + shot delay delay and +ve shot delay + shot delay delay
 @export var ENEMY_INACCURACY: float = 2.0 # randomly btw + and - angle
 var shotDelay: float = 0.0
 var _shotClock: float = 0.0
@@ -120,7 +121,7 @@ func create() -> void:
 	ship.controlsEnabled = false
 
 	#create a timer that shoots an enemy projectile every 3 seconds
-	shotDelay = randf_range(-ENEMY_SHOT_DELAY, ENEMY_SHOT_DELAY) + 3.0
+	shotDelay = randf_range(-ENEMY_SHOT_DELAY, ENEMY_SHOT_DELAY) + ENEMY_SHOT_DELAY_DELAY
 	_shotInterval = shotDelay
 	_shotClock = _shotInterval
 	_stage_clock = 0.0
@@ -655,6 +656,7 @@ func updateHealthText() -> void:
 	var armor_max := maxi(ship.PLAYER_HEALTH_MAX, 1)
 	healthText.max_value = armor_max
 	healthText.value = ship.health
+	#healthText.modulate = Color(1, 1, 1, 0.35)
 	armorCount.text = str(ship.health) + "/" + str(armor_max)
 
 
@@ -699,7 +701,7 @@ func enemyShot() -> void:
 			enemyProjectiles.append(ep)
 			actors.add_child(ep)
 	#reroll shot delay
-	shotDelay = randf_range(-ENEMY_SHOT_DELAY, ENEMY_SHOT_DELAY) + 3.0
+	#shotDelay = randf_range(-ENEMY_SHOT_DELAY, ENEMY_SHOT_DELAY) + 3.0
 
 
 func camera_flash(color: Color, duration: float) -> void:
