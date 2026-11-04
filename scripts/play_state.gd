@@ -338,7 +338,7 @@ func collidePlayer(object1: Actor, object2: Actor) -> void:
 		ship.flash(Color(1, 0, 0), 0.1) # Flash if player hit
 		updateHealthText()
 		if ship.health < 1:
-			_lose_silent()
+			_lose()
 		else:
 			object1.kill() # projectiles just disappear, no animation
 			object1.exists = false
@@ -357,15 +357,15 @@ func _lose() -> void:
 	gameOverText.visible = true
 
 
-func _lose_silent() -> void:
-	camera_flash(Color(1, 0, 0), 2.0)
-	ship.kill()
-	ship.exists = false
-	ship.visible = false
-	ship.update_drones(0.0)
-	_show_restart()
-	gameWonText.visible = false
-	gameOverText.visible = true
+#func _lose_silent() -> void:
+	#camera_flash(Color(1, 0, 0), 2.0)
+	#ship.kill()
+	#ship.exists = false
+	#ship.visible = false
+	#ship.update_drones(0.0)
+	#_show_restart()
+	#gameWonText.visible = false
+	#gameOverText.visible = true
 
 
 func _restart() -> void:
